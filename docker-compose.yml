@@ -1,0 +1,50 @@
+services:
+  upassed-account-service-postgres:
+    image: postgres:16.4
+    container_name: upassed_account_service_postgres
+    environment:
+      POSTGRES_DB: "upassed-account-service-db"
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "password"
+    ports:
+        - "5432:5432"
+  upassed-authentication-service-postgres:
+    image: postgres:16.4
+    container_name: upassed_authentication_service_postgres
+    environment:
+      POSTGRES_DB: "upassed-authentication-service-db"
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "password"
+    ports:
+        - "5433:5432"
+  upassed-form-service-postgres:
+    image: postgres:16.4
+    container_name: upassed_form_service_postgres
+    environment:
+      POSTGRES_DB: "upassed-form-service-db"
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "password"
+    ports:
+        - "5434:5432"
+  jaeger:
+    image: jaegertracing/all-in-one:1.62.0
+    container_name: upassed_jaeger
+    ports:
+      - "16686:16686"
+      - "4317:4317"
+  upassed-rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: upassed_rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: "upassed-rabbit-user"
+      RABBITMQ_DEFAULT_PASS: "upassed-rabbit-password"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  upassed-redis-cache:
+    image: redis:7.4
+    container_name: upassed_redis_cache
+    environment:
+      - REDIS_PASSWORD=password
+    ports:
+      - "6380:6379"
