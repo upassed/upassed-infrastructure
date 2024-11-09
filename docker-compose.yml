@@ -1,3 +1,7 @@
+networks:
+  upassed:
+    driver: bridge
+
 services:
   upassed-account-service-postgres:
     image: postgres:16.4
@@ -7,7 +11,10 @@ services:
       POSTGRES_USER: "user"
       POSTGRES_PASSWORD: "password"
     ports:
-        - "5432:5432"
+      - "5432:5432"
+    networks:
+      - upassed
+
   upassed-authentication-service-postgres:
     image: postgres:16.4
     container_name: upassed_authentication_service_postgres
@@ -16,7 +23,10 @@ services:
       POSTGRES_USER: "user"
       POSTGRES_PASSWORD: "password"
     ports:
-        - "5433:5432"
+      - "5433:5432"
+    networks:
+      - upassed
+
   upassed-form-service-postgres:
     image: postgres:16.4
     container_name: upassed_form_service_postgres
@@ -25,13 +35,19 @@ services:
       POSTGRES_USER: "user"
       POSTGRES_PASSWORD: "password"
     ports:
-        - "5434:5432"
+      - "5434:5432"
+    networks:
+      - upassed
+
   jaeger:
     image: jaegertracing/all-in-one:1.62.0
     container_name: upassed_jaeger
     ports:
       - "16686:16686"
       - "4317:4317"
+    networks:
+      - upassed
+
   upassed-rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: upassed_rabbitmq
@@ -41,6 +57,9 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    networks:
+      - upassed
+
   upassed-redis-cache:
     image: redis:7.4
     container_name: upassed_redis_cache
@@ -48,3 +67,5 @@ services:
       - REDIS_PASSWORD=password
     ports:
       - "6380:6379"
+    networks:
+      - upassed
