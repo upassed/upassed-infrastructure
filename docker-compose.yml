@@ -1,6 +1,7 @@
 networks:
   upassed:
     driver: bridge
+    name: upassed
 
 services:
   upassed-account-service-postgres:
