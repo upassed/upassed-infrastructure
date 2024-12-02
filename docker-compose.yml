@@ -52,6 +52,18 @@ services:
     networks:
       - upassed
 
+  upassed-answer-service-postgres:
+    image: postgres:16.4
+    container_name: upassed_answer_service_postgres
+    environment:
+      POSTGRES_DB: "upassed-answer-service-db"
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "password"
+    ports:
+      - "5436:5432"
+    networks:
+      - upassed
+
   jaeger:
     image: jaegertracing/all-in-one:1.62.0
     container_name: upassed_jaeger
